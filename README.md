@@ -1,7 +1,3 @@
-WARNING:
-========
-This project is no longer maintained.
-
 LibreTuner
 =========
 Open source engine tuning software for Mazda platforms
@@ -39,20 +35,22 @@ All interesting code lives at `lib/LibLibreTuner`.
 Building
 --------
 ### Requirements
-* Qt5
+* Qt5 - `sudo apt install qtcreator qtbase5-dev qt5-qmake libqt5charts5`
 * CMake 3.10 or higher
 * A compiler that supports C++17
+* conan - `sudo pip3 install conan==1.60`
 
 ### Build instructions
 
 #### Linux
-1. `git clone https://github.com/Libretuner/LibreTuner.git`
+1. `git clone https://github.com/Volkanite/LibreTuner.git`
 2. `cd LibreTuner`
 3. `git submodule update --init --recursive`
-4. `cd LibreTuner`
+4. `conan install conanfile.txt`
 5. `cmake .`
 6. `make`
-7. `./LibreTuner`
+7. `cd bin`
+8. `./LibreTuner`
 
 #### Windows
 TODO. (Use Qt Creator with MSVC)
