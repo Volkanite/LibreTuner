@@ -4,6 +4,7 @@
 #include <cassert>
 #include <memory>
 #include <vector>
+#include <limits>
 
 #include "../buffer/view.h"
 #include "../support/types.h"

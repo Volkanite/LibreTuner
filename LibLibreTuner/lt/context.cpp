@@ -1,3 +1,4 @@
+#include <string>
 #include "libretuner.h"
 
 namespace lt

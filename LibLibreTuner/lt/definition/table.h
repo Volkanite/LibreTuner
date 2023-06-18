@@ -6,6 +6,7 @@
 #include <string>
 #include <utility>
 #include <variant>
+#include <limits>
 
 namespace lt
 {

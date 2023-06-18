@@ -1,6 +1,6 @@
 [requires]
 # qt/5.14.1@bincrafters/stable
-cereal/1.2.2@conan/stable
+cereal/1.3.0
 nlohmann_json/3.7.3
 
 [generators]
