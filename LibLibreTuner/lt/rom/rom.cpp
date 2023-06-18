@@ -183,8 +183,8 @@ void Tune::save() const
     if (!file.is_open())
         throw std::runtime_error("failed to open tune file '" + path_.string() + "' for writing");
 
-    //cereal::BinaryOutputArchive archive(file);
-    //archive(metadata(), data_);
+    cereal::BinaryOutputArchive archive(file);
+    archive(metadata(), data_);
 }
 
 Tune::Tune(RomPtr rom) : Tune(rom, MemoryBuffer(rom->cbegin(), rom->cend())) {}
@@ -221,8 +221,8 @@ void Rom::save() const
     if (!file.is_open())
         throw std::runtime_error("failed to open ROM file '" + path_.string() + "' for writing");
 
-    //cereal::BinaryOutputArchive archive(file);
-    //archive(metadata(), data_);
+    cereal::BinaryOutputArchive archive(file);
+    archive(metadata(), data_);
 }
 
 } // namespace lt
