@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <type_traits>
 #include <vector>
+#include <cstdint>
 
 namespace serialize
 {

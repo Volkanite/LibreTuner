@@ -2,6 +2,7 @@
 #define LT_AUTH
 
 #include <string>
+#include <cstdint>
 
 namespace lt
 {

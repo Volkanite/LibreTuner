@@ -34,7 +34,7 @@ All interesting code lives at `lib/LibLibreTuner`.
 
 Building
 --------
-### Requirements
+### Requirements (Debian)
 * Qt5 - `sudo apt install qtcreator qtbase5-dev qt5-qmake libqt5charts5-dev libqt5datavisualization5-dev`
 * Python3-pip - `sudo apt install python3-pip`
 * Git - `sudo apt install git`  
