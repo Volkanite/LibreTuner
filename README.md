@@ -35,10 +35,12 @@ All interesting code lives at `lib/LibLibreTuner`.
 Building
 --------
 ### Requirements
-* Qt5 - `sudo apt install qtcreator qtbase5-dev qt5-qmake libqt5charts5`
-* CMake 3.10 or higher
+* Qt5 - `sudo apt install qtcreator qtbase5-dev qt5-qmake libqt5charts5-dev libqt5datavisualization5-dev`
+* Python3-pip - `sudo apt install python3-pip`
+* Git - `sudo apt install git`  
+* CMake 3.10 or higher - `sudo apt install cmake`  
 * A compiler that supports C++17
-* conan - `sudo pip3 install conan==1.60`
+* conan - `sudo pip3 install conan==1.66`
 
 ### Build instructions
 
@@ -54,3 +56,6 @@ Building
 
 #### Windows
 TODO. (Use Qt Creator with MSVC)
+
+
+
