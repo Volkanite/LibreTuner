@@ -55,7 +55,8 @@ Building
 8. `./LibreTuner`
 
 #### Windows
-TODO. (Use Qt Creator with MSVC)
+MSVC 14.2x (Visual Studio 2019)  
+Qt Creator 5.12.3 - https://download.qt.io/archive/qt/5.12/5.12.3/
 
 
 

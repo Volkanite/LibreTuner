@@ -25,6 +25,7 @@
 #include <iterator>
 #include <string>
 #include <utility>
+#include <stdexcept>
 
 #include "endianness.h"
 
