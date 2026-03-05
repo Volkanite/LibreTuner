@@ -45,7 +45,7 @@ int PlatformsModel::rowCount(const QModelIndex & parent) const
     {
         // Platform node
         int row = parent.row();
-        if (row < 0 || row >= platforms_->size())
+        if (row < 0 || (unsigned int) row >= platforms_->size())
             return 0;
         return platforms_->at(parent.row())->models.size();
     }
@@ -71,7 +71,7 @@ QVariant PlatformsModel::data(const QModelIndex & index, int role) const
     {
         // Platform
         int platformIndex = index.row();
-        if (platformIndex >= platforms_->size())
+        if ((unsigned int) platformIndex >= platforms_->size())
         {
             // platformIndex will never be < 0 due to constraints in views
             return QVariant();
@@ -90,7 +90,7 @@ QVariant PlatformsModel::data(const QModelIndex & index, int role) const
 
     // Model
     int platformIndex = index.internalId() - 1;
-    if (platformIndex >= platforms_->size())
+    if ((unsigned int) platformIndex >= platforms_->size())
     {
         // platformIndex will never be < 0 due to constraints in views
         return QVariant();
@@ -99,7 +99,7 @@ QVariant PlatformsModel::data(const QModelIndex & index, int role) const
 
     int modelIndex = index.row();
 
-    if (modelIndex < platform->models.size())
+    if ((unsigned int) modelIndex < platform->models.size())
     {
         const lt::ModelPtr & model = platform->models[modelIndex];
         if (role == Qt::DisplayRole)

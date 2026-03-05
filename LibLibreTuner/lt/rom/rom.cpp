@@ -79,7 +79,7 @@ Table * Tune::getTable(const std::string & id, bool create)
         if (def == nullptr)
             return nullptr;
 
-        if (size() < def->offset.value() + def->byteSize())
+        if (size() < (unsigned) def->offset.value() + def->byteSize())
             throw std::runtime_error("table '" + id +
                                      "' could not be created because it "
                                      "exceeds the size of the ROM");
@@ -193,7 +193,7 @@ Tune::Tune(RomPtr rom, MemoryBuffer && data) : base_(std::move(rom)), data_(std:
 {
     assert(base_);
 
-    if (base_->size() != size())
+    if ((unsigned int) base_->size() != size())
         throw std::runtime_error("The base ROM and tune data size do not match (" + std::to_string(base_->size()) +
                                  " vs " + std::to_string(size()) + "). The tune or base ROM is corrupt.");
 }

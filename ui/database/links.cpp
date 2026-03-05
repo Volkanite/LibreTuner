@@ -381,7 +381,7 @@ QVariant LinksListModel::data(const QModelIndex & index, int role) const
 LinksListModel::LinksListModel(const Links & links) : links_(links)
 {
     connect(&links_, &QAbstractItemModel::rowsInserted, this,
-            [this](const QModelIndex & parent, int first, int last) {
+            [this](const QModelIndex & /*parent*/, int /*first*/, int /*last*/) {
                 beginResetModel();
                 endResetModel();
             });

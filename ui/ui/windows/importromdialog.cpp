@@ -108,4 +108,4 @@ ImportRomDialog::ImportRomDialog(lt::ProjectPtr project, QWidget * parent)
     });
 }
 
-void ImportRomDialog::platformChanged(int index) {}
+void ImportRomDialog::platformChanged(int /*index*/) {}

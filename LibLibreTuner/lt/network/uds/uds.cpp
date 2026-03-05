@@ -99,13 +99,13 @@ std::vector<uint8_t> Uds::requestReadMemoryAddress(uint32_t address,
                                                    uint16_t length)
 {
     std::array<uint8_t, 6> req;
-    req[0] = (address & 0xFF000000) >> 24;
-    req[1] = (address & 0xFF0000) >> 16;
-    req[2] = (address & 0xFF00) >> 8;
-    req[3] = address & 0xFF;
+    req[0] = static_cast<uint8_t>( (address & 0xFF000000) >> 24 );
+    req[1] = static_cast<uint8_t>( (address & 0xFF0000) >> 16 );
+    req[2] = static_cast<uint8_t>( (address & 0xFF00) >> 8 );
+    req[3] = static_cast<uint8_t>( address & 0xFF );
 
-    req[4] = length >> 8;
-    req[5] = length & 0xFF;
+    req[4] = static_cast<uint8_t>( length >> 8 );
+    req[5] = static_cast<uint8_t>( length & 0xFF );
 
     UdsPacket res = request(UDS_REQ_READMEM, req.data(), req.size());
 

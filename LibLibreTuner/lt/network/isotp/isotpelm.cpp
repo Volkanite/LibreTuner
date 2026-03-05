@@ -111,8 +111,8 @@ void IsoTpElm::setOptions(const IsoTpOptions & options)
 
 void IsoTpElm::updateOptions()
 {
-    device_->setHeader(options_.sourceId);
-    device_->setCanReceiveAddress11(options_.destId);
+    device_->setHeader(static_cast<uint16_t>(options_.sourceId));
+    device_->setCanReceiveAddress11(static_cast<uint16_t>(options_.destId));
     // TODO: set timeout
 }
 

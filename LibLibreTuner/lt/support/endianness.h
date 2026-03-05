@@ -19,7 +19,18 @@ namespace detail
 {
 // https://stackoverflow.com/questions/1583791/constexpr-and-endianness
 constexpr uint32_t test = 0x01020304;
+
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable : 4310)
+#endif
+
 constexpr uint8_t magic = (const uint8_t &)(test);
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
+
 constexpr bool isLittle = magic == 0x04;
 constexpr bool isBig = magic == 0x01;
 } // namespace detail
@@ -39,6 +50,11 @@ template <typename T> T swap(T t)
     return *reinterpret_cast<T *>(raw);
 }
 
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable : 4702)
+#endif
+
 template <typename T, Endianness from, Endianness to> T convert(T t)
 {
     if constexpr (from == to)
@@ -48,6 +64,10 @@ template <typename T, Endianness from, Endianness to> T convert(T t)
 
     return swap(t);
 }
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 // Converts from native format to big endian
 template <typename T> T toBig(T t)

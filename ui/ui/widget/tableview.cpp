@@ -32,7 +32,7 @@ TableView::~TableView()
     delete graph_;
 }
 
-TableView::TableView(QWidget * parent)
+TableView::TableView(QWidget * /*parent*/)
 {
     auto * vLayout = new QVBoxLayout;
     labelX_ = new QLabel("X-Axis");

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 project(LibLibreTuner)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -120,7 +120,7 @@ target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 
 # Set warnings
 if(MSVC)
-    target_compile_options(LibLibreTuner PRIVATE /W4)
+    target_compile_options(LibLibreTuner PRIVATE /W4 /WX)
 else()
     target_compile_options(LibLibreTuner PRIVATE -Wall -Wextra -pedantic -Wno-missing-field-initializers -Wno-missing-braces)
 endif()

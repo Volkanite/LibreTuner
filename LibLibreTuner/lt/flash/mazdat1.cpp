@@ -80,7 +80,7 @@ bool MazdaT1Flasher::sendLoad()
         network::UdsPacket res = uds_->request(network::UDS_REQ_TRANSFERDATA,
                                                data.data(), data.size());
 
-        notifyProgress(static_cast<double>(sent_) / flash_->data().size());
+        notifyProgress(static_cast<float>(sent_) / flash_->data().size());
         if (canceled_)
         {
             return false;

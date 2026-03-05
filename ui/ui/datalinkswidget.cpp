@@ -122,14 +122,14 @@ void DatalinksWidget::linkChanged(lt::DataLink * link)
 
 lt::DataLink * DatalinksWidget::currentLink() const
 {
-    QVariant data =
+    QVariant dataLink =
         LT()->links().data(linksView_->currentIndex(), Qt::UserRole);
-    if (!data.canConvert<lt::DataLink *>())
+    if (!dataLink.canConvert<lt::DataLink *>())
     {
         return nullptr;
     }
 
-    return data.value<lt::DataLink *>();
+    return dataLink.value<lt::DataLink *>();
 }
 
 void DatalinksWidget::setButtonsEnabled(bool enabled)

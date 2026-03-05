@@ -11,7 +11,7 @@
 
 #include <lt/diagnostics/vehicle_info.h>
 
-VehicleInformationWidget::VehicleInformationWidget(QWidget * parent)
+VehicleInformationWidget::VehicleInformationWidget(QWidget * /*parent*/)
 {
     auto * buttonScan = new QPushButton(tr("Scan"));
     auto * buttonClose = new QPushButton(tr("Close"));

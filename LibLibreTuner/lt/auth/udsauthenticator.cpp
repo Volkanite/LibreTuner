@@ -50,9 +50,9 @@ void UdsAuthenticator::do_request_seed()
 void UdsAuthenticator::do_send_key(uint32_t key)
 {
     uint8_t kData[3];
-    kData[0] = key & 0xFF;
-    kData[1] = (key & 0xFF00) >> 8;
-    kData[2] = (key & 0xFF0000) >> 16;
+    kData[0] = static_cast<uint8_t>( key & 0xFF );
+    kData[1] = static_cast<uint8_t>( (key & 0xFF00) >> 8 );
+    kData[2] = static_cast<uint8_t>( (key & 0xFF0000) >> 16 );
 
     uds_.requestSecurityKey(kData, 3);
 }

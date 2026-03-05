@@ -48,11 +48,11 @@ void CreateTuneDialog::on_buttonCreate_clicked()
         return;
     }
 
-    QVariant data = ui_->comboBase->currentData();
-    if (!data.canConvert<lt::Rom::MetaData>())
+    QVariant vData = ui_->comboBase->currentData();
+    if (!vData.canConvert<lt::Rom::MetaData>())
         return;
 
-    auto md = data.value<lt::Rom::MetaData>();
+    auto md = vData.value<lt::Rom::MetaData>();
     // Load base
     catchWarning(
         [&]() {
@@ -88,7 +88,7 @@ void CreateTuneDialog::on_buttonCreate_clicked()
     close();*/
 }
 
-void CreateTuneDialog::on_comboProject_currentIndexChanged(int index)
+void CreateTuneDialog::on_comboProject_currentIndexChanged(int /*index*/)
 {
     ui_->comboBase->clear();
     lt::ProjectPtr project = ui_->comboProject->selectedProject();

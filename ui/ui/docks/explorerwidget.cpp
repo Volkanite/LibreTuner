@@ -70,14 +70,14 @@ void ExplorerWidget::setModel(QAbstractItemModel * model)
 
 void ExplorerWidget::populateMenu(const QModelIndex & index)
 {
-    QVariant data = index.data(Qt::UserRole);
+    QVariant vData = index.data(Qt::UserRole);
     menu_.setProject(detail::find_project(index));
 
-    if (data.canConvert<lt::Rom::MetaData>())
-        menu_.setRom(data.value<lt::Rom::MetaData>().path.filename().string());
-    else if (data.canConvert<lt::Tune::MetaData>())
+    if (vData.canConvert<lt::Rom::MetaData>())
+        menu_.setRom(vData.value<lt::Rom::MetaData>().path.filename().string());
+    else if (vData.canConvert<lt::Tune::MetaData>())
         menu_.setTune(
-            data.value<lt::Tune::MetaData>().path.filename().string());
+            vData.value<lt::Tune::MetaData>().path.filename().string());
 }
 
 bool ExplorerWidget::eventFilter(QObject * watched, QEvent * event)
@@ -98,10 +98,10 @@ bool ExplorerWidget::eventFilter(QObject * watched, QEvent * event)
 
 void ExplorerWidget::onActivated(const QModelIndex & index)
 {
-    QVariant data = index.data(Qt::UserRole);
-    if (data.canConvert<lt::Tune::MetaData>())
+    QVariant vData = index.data(Qt::UserRole);
+    if (vData.canConvert<lt::Tune::MetaData>())
     {
-        auto meta = data.value<lt::Tune::MetaData>();
+        auto meta = vData.value<lt::Tune::MetaData>();
         // Get project
         lt::ProjectPtr project = detail::find_project(index);
         if (!project)

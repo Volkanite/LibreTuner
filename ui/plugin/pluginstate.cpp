@@ -11,7 +11,7 @@ PluginState::PluginState()
                         sol::lib::io);*/
 }
 
-void PluginState::loadFile(const std::string & filename)
+void PluginState::loadFile(const std::string & /*filename*/)
 {
     /*
     try

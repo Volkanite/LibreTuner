@@ -81,6 +81,11 @@ void GraphWidget::setModel(TableModel * model)
     }
 }
 
+#if defined(_MSC_VER)
+#pragma warning( push )
+#pragma warning( disable : 4996 )
+#endif
+
 void GraphWidget::refresh()
 {
     if (model_ == nullptr)
@@ -163,3 +168,7 @@ void GraphWidget::refresh()
         container_->setVisible(false);
     }
 }
+
+#if defined(_MSC_VER)
+#pragma warning( pop )
+#endif

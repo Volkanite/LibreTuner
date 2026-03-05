@@ -158,7 +158,7 @@ endif (WIN32)
 
 # Set warnings
 if(MSVC)
-  target_compile_options(LibreTuner PRIVATE /W4)
+  target_compile_options(LibreTuner PRIVATE /W4 /WX)
 else()
   target_compile_options(LibreTuner PRIVATE -Wall -Wextra -pedantic -Wno-missing-field-initializers -Wno-missing-braces)
 endif()

@@ -114,7 +114,7 @@ std::vector<MetaData> getMetaData(fs::path & dir, bool requiresExtension,
         {
             ar(md);
         }
-        catch (const std::runtime_error & err)
+        catch (const std::runtime_error & /*err*/)
         {
             // TODO: Log exception
         }
@@ -241,7 +241,7 @@ RomPtr Project::importRom(const std::string & name,
     file.seekg(0, std::ios::beg);
 
     // Allocate buffer
-    std::vector<uint8_t> buffer(size);
+    std::vector<uint8_t> buffer(static_cast<unsigned int>(size));
     file.read(reinterpret_cast<char *>(buffer.data()), size);
     file.close();
 

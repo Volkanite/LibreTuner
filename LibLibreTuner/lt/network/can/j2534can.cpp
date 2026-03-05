@@ -59,10 +59,10 @@ void J2534Can::send(const CanMessage & message)
 
     // Add the CAN ID
     uint32_t id = message.id();
-    msg.Data[0] = (id & 0xFF000000U) >> 24U;
-    msg.Data[1] = (id & 0xFF0000U) >> 16U;
-    msg.Data[2] = (id & 0xFF00U) >> 8U;
-    msg.Data[3] = id & 0xFFU;
+    msg.Data[0] = static_cast<unsigned char>( (id & 0xFF000000U) >> 24U );
+    msg.Data[1] = static_cast<unsigned char>( (id & 0xFF0000U) >> 16U );
+    msg.Data[2] = static_cast<unsigned char>( (id & 0xFF00U) >> 8U );
+    msg.Data[3] = static_cast<unsigned char>( id & 0xFFU );
     std::copy(message.message(), message.message() + message.length(), msg.Data + 4);
     // Message length + CAN ID length
     msg.DataSize = message.length() + 4;
@@ -105,7 +105,7 @@ bool J2534Can::recv(CanMessage & message, std::chrono::milliseconds timeout)
         }
 
         uint32_t pNumMsgs = msgs.size();
-        channel_.readMsgs(msgs.data(), pNumMsgs, timeout.count());
+        channel_.readMsgs(msgs.data(), pNumMsgs, static_cast<uint32_t>(timeout.count()));
 
         // Fill buffer
         for (std::size_t i = 0; i < pNumMsgs; ++i)
@@ -119,14 +119,14 @@ bool J2534Can::recv(CanMessage & message, std::chrono::milliseconds timeout)
             uint32_t id = (msg.Data[0] << 24U) | (msg.Data[1] << 16U) | (msg.Data[2] << 8U) | (msg.Data[3]);
 
             CanMessage can_msg;
-            can_msg.setMessage(id, msg.Data + 4, msg.DataSize - 4);
+            can_msg.setMessage(id, msg.Data + 4, static_cast<uint8_t>(msg.DataSize - 4));
             if (can_msg.id() == 0x7e8 || can_msg.id() == 0x7e0)
             {
                 std::ofstream file("j2534_out.txt", std::ios::app);
                 file << "[" << std::hex << can_msg.id() << "] <-";
-                for (int i = 0; i < can_msg.length(); ++i)
+                for (int j = 0; j < can_msg.length(); ++j)
                 {
-                    file << std::hex << " " << static_cast<uint32_t>(can_msg[i]);
+                    file << std::hex << " " << static_cast<uint32_t>(can_msg[j]);
                 }
                 file << "\n";
                 file.close();

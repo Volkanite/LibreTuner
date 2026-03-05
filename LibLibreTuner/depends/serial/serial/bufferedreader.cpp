@@ -19,7 +19,7 @@ void BufferedReader::readSome() {
     }
 }
 
-std::string BufferedReader::read(int amount) {
+std::string BufferedReader::read(unsigned int amount) {
     while (buffer_.size() < amount) {
         readSome();
     }

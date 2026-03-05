@@ -10328,7 +10328,7 @@ void QCPAxisPainterPrivate::draw(QCPPainter * painter)
                                origin.y());
             painter->rotate(-90);
             painter->drawText(0, 0, axisRect.height(), labelBounds.height(),
-                              Qt::TextDontClip | Qt::AlignCenter, label);
+                              +Qt::TextDontClip | Qt::AlignCenter, label);
             painter->setTransform(oldTransform);
         }
         else if (type == QCPAxis::atRight)
@@ -10338,18 +10338,18 @@ void QCPAxisPainterPrivate::draw(QCPPainter * painter)
                                origin.y() - axisRect.height());
             painter->rotate(90);
             painter->drawText(0, 0, axisRect.height(), labelBounds.height(),
-                              Qt::TextDontClip | Qt::AlignCenter, label);
+                              +Qt::TextDontClip | Qt::AlignCenter, label);
             painter->setTransform(oldTransform);
         }
         else if (type == QCPAxis::atTop)
             painter->drawText(origin.x(),
                               origin.y() - margin - labelBounds.height(),
                               axisRect.width(), labelBounds.height(),
-                              Qt::TextDontClip | Qt::AlignCenter, label);
+                              +Qt::TextDontClip | Qt::AlignCenter, label);
         else if (type == QCPAxis::atBottom)
             painter->drawText(origin.x(), origin.y() + margin, axisRect.width(),
                               labelBounds.height(),
-                              Qt::TextDontClip | Qt::AlignCenter, label);
+                              +Qt::TextDontClip | Qt::AlignCenter, label);
     }
 
     // set selection boxes:
@@ -10479,7 +10479,7 @@ int QCPAxisPainterPrivate::size() const
         QFontMetrics fontMetrics(labelFont);
         QRect bounds;
         bounds = fontMetrics.boundingRect(
-            0, 0, 0, 0, Qt::TextDontClip | Qt::AlignHCenter | Qt::AlignVCenter,
+            0, 0, 0, 0, +Qt::TextDontClip | Qt::AlignHCenter | Qt::AlignVCenter,
             label);
         result += bounds.height() + labelPadding;
     }
@@ -10721,7 +10721,7 @@ void QCPAxisPainterPrivate::drawTickLabel(QCPPainter * painter, double x,
         painter->setFont(labelData.baseFont);
         painter->drawText(
             0, 0, labelData.totalBounds.width(), labelData.totalBounds.height(),
-            Qt::TextDontClip | Qt::AlignHCenter, labelData.basePart);
+            +Qt::TextDontClip | Qt::AlignHCenter, labelData.basePart);
     }
 
     // reset painter settings to what it was before:
@@ -10831,7 +10831,7 @@ QCPAxisPainterPrivate::getTickLabelData(const QFont & font,
         result.basePart = text;
         result.totalBounds =
             QFontMetrics(result.baseFont)
-                .boundingRect(0, 0, 0, 0, Qt::TextDontClip | Qt::AlignHCenter,
+                .boundingRect(0, 0, 0, 0, +Qt::TextDontClip | Qt::AlignHCenter,
                               result.basePart);
     }
     result.totalBounds.moveTopLeft(QPoint(
@@ -16001,6 +16001,10 @@ QList<QCPLegend *> QCustomPlot::selectedLegends() const
   \see setInteractions, selectedPlottables, selectedItems, selectedAxes,
   selectedLegends
 */
+#if defined(_MSC_VER)
+#pragma warning( push )
+#pragma warning( disable : 4456 )
+#endif
 void QCustomPlot::deselectAll()
 {
     foreach (QCPLayer * layer, mLayers)
@@ -16009,6 +16013,9 @@ void QCustomPlot::deselectAll()
             layerable->deselectEvent(0);
     }
 }
+#if defined(_MSC_VER)
+#pragma warning( pop )
+#endif
 
 /*!
   Causes a complete replot into the internal paint buffer(s). Finally, the
@@ -17052,9 +17059,9 @@ void QCustomPlot::axisRemoved(QCPAxis * axis)
   This method is used by the QCPLegend destructor to report legend removal to
   the QCustomPlot so it may clear its QCustomPlot::legend member accordingly.
 */
-void QCustomPlot::legendRemoved(QCPLegend * legend)
+void QCustomPlot::legendRemoved(QCPLegend * plotLegend)
 {
-    if (this->legend == legend)
+    if (this->legend == plotLegend)
         this->legend = 0;
 }
 
@@ -17077,6 +17084,12 @@ void QCustomPlot::legendRemoved(QCPLegend * legend)
 
   \see processRectZoom
 */
+
+#if defined(_MSC_VER)
+#pragma warning( push )
+#pragma warning( disable : 4456 )
+#endif
+
 void QCustomPlot::processRectSelection(QRect rect, QMouseEvent * event)
 {
     bool selectionStateChanged = false;
@@ -17259,6 +17272,10 @@ void QCustomPlot::processPointSelection(QMouseEvent * event)
         replot(rpQueuedReplot);
     }
 }
+
+#if defined(_MSC_VER)
+#pragma warning( pop )
+#endif
 
 /*! \internal
 
@@ -32686,17 +32703,17 @@ void QCPItemLine::draw(QCPPainter * painter)
 
   This is a helper function for \ref draw.
 */
-QLineF QCPItemLine::getRectClippedLine(const QCPVector2D & start,
-                                       const QCPVector2D & end,
+QLineF QCPItemLine::getRectClippedLine(const QCPVector2D & startPos,
+                                       const QCPVector2D & endPos,
                                        const QRect & rect) const
 {
-    bool containsStart = rect.contains(start.x(), start.y());
-    bool containsEnd = rect.contains(end.x(), end.y());
+    bool containsStart = rect.contains(startPos.x(), startPos.y());
+    bool containsEnd = rect.contains(endPos.x(), endPos.y());
     if (containsStart && containsEnd)
-        return QLineF(start.toPointF(), end.toPointF());
+        return QLineF(startPos.toPointF(), endPos.toPointF());
 
-    QCPVector2D base = start;
-    QCPVector2D vec = end - start;
+    QCPVector2D base = startPos;
+    QCPVector2D vec = endPos - startPos;
     double bx, by;
     double gamma, mu;
     QLineF result;
@@ -32750,9 +32767,9 @@ QLineF QCPItemLine::getRectClippedLine(const QCPVector2D & start,
     }
 
     if (containsStart)
-        pointVectors.append(start);
+        pointVectors.append(startPos);
     if (containsEnd)
-        pointVectors.append(end);
+        pointVectors.append(endPos);
 
     // evaluate points:
     if (pointVectors.size() == 2)
@@ -33555,11 +33572,11 @@ double QCPItemEllipse::selectTest(const QPointF & pos, bool onlySelectable,
 
     QPointF p1 = topLeft->pixelPosition();
     QPointF p2 = bottomRight->pixelPosition();
-    QPointF center((p1 + p2) / 2.0);
+    QPointF centerPos((p1 + p2) / 2.0);
     double a = qAbs(p1.x() - p2.x()) / 2.0;
     double b = qAbs(p1.y() - p2.y()) / 2.0;
-    double x = pos.x() - center.x();
-    double y = pos.y() - center.y();
+    double x = pos.x() - centerPos.x();
+    double y = pos.y() - centerPos.y();
 
     // distance to border:
     double c = 1.0 / qSqrt(x * x / (a * a) + y * y / (b * b));
@@ -33890,18 +33907,18 @@ QRect QCPItemPixmap::getFinalRect(bool * flippedHorz, bool * flippedVert) const
     if (mScaled)
     {
         QSize newSize = QSize(p2.x() - p1.x(), p2.y() - p1.y());
-        QPoint topLeft = p1;
+        QPoint qpTopLeft = p1;
         if (newSize.width() < 0)
         {
             flipHorz = true;
             newSize.rwidth() *= -1;
-            topLeft.setX(p2.x());
+            qpTopLeft.setX(p2.x());
         }
         if (newSize.height() < 0)
         {
             flipVert = true;
             newSize.rheight() *= -1;
-            topLeft.setY(p2.y());
+            qpTopLeft.setY(p2.y());
         }
         QSize scaledSize = mPixmap.size();
 #ifdef QCP_DEVICEPIXELRATIO_SUPPORTED
@@ -33911,7 +33928,7 @@ QRect QCPItemPixmap::getFinalRect(bool * flippedHorz, bool * flippedVert) const
 #else
         scaledSize.scale(newSize, mAspectRatioMode);
 #endif
-        result = QRect(topLeft, scaledSize);
+        result = QRect(qpTopLeft, scaledSize);
     }
     else
     {

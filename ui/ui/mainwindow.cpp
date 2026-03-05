@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget * parent) : QMainWindow(parent), linksList_(LT()-
     loadSettings();
 }
 
-void MainWindow::saveTune(bool newPath)
+void MainWindow::saveTune(bool /*newPath*/)
 {
     if (!tune_)
         return;
@@ -382,8 +382,8 @@ void MainWindow::setupMenu()
 {
     auto * menuBar = new QMenuBar;
     QMenu * fileMenu = menuBar->addMenu(tr("&File"));
-    QMenu * editMenu = menuBar->addMenu(tr("&Edit"));
-    QMenu * helpMenu = menuBar->addMenu(tr("&Help"));
+    /*QMenu * editMenu =*/ menuBar->addMenu(tr("&Edit"));
+    /*QMenu * helpMenu =*/ menuBar->addMenu(tr("&Help"));
     QMenu * viewMenu = menuBar->addMenu(tr("&View"));
     QMenu * toolsMenu = menuBar->addMenu(tr("&Tools"));
 
@@ -391,20 +391,20 @@ void MainWindow::setupMenu()
     recentMenu_ = fileMenu->addMenu(tr("Recent Projects"));
     auto * flashAction = fileMenu->addAction(tr("Flash Tune"));
     auto * openTuneAction = fileMenu->addAction(tr("&Open Tune"));
-    openTuneAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_O));
+    openTuneAction->setShortcut(QKeySequence(+Qt::CTRL + Qt::Key_O));
     auto * createTuneAction = fileMenu->addAction(tr("&New Tune"));
     auto * newProjectAction = fileMenu->addAction(tr("New Project"));
     auto * openProjectAction = fileMenu->addAction(tr("Open Project"));
 
-    createTuneAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_N));
+    createTuneAction->setShortcut(QKeySequence(+Qt::CTRL + Qt::Key_N));
     auto * downloadAction = fileMenu->addAction(tr("&Download ROM"));
 
     saveCurrentAction_ = fileMenu->addAction(tr("&Save Tune"));
-    saveCurrentAction_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
+    saveCurrentAction_->setShortcut(QKeySequence(+Qt::CTRL + Qt::Key_S));
     saveCurrentAction_->setEnabled(false);
 
     flashCurrentAction_ = fileMenu->addAction(tr("Flash Current Tune"));
-    flashCurrentAction_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F));
+    flashCurrentAction_->setShortcut(QKeySequence(+Qt::CTRL + Qt::Key_F));
     flashCurrentAction_->setEnabled(false);
 
     // View menu
@@ -477,7 +477,7 @@ void MainWindow::setupMenu()
 
     // Tools menu
 
-    QAction * logAction = toolsMenu->addAction(tr("&CAN Log"));
+    /*QAction * logAction =*/ toolsMenu->addAction(tr("&CAN Log"));
     // connect(logAct, &QAction::triggered, [this] { canViewer_.show(); });
     QAction * infoAction = toolsMenu->addAction(tr("Vehicle Information"));
     connect(infoAction, &QAction::triggered, [this]() {

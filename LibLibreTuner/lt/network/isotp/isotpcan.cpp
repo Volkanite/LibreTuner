@@ -164,7 +164,7 @@ void IsoTpCan::sendSingleFrame(const uint8_t * data, std::size_t size)
     message.setId(options_.sourceId);
     message[0] = (typeSingle << 4) | (static_cast<uint8_t>(size));
     std::copy(data, data + size, message.message() + 1);
-    message.setLength(size + 1);
+    message.setLength(static_cast<uint8_t>(size + 1));
 
     message.pad();
 
@@ -206,7 +206,7 @@ void MultiFrameSender::send()
     message[1] = reader_.remaining() & 0xFF;
 
     std::size_t amountRead = reader_.next(message.message() + 2, 6);
-    message.setLength(amountRead + 2);
+    message.setLength(static_cast<uint8_t>(amountRead + 2));
 
     message.pad();
 
@@ -260,7 +260,7 @@ void MultiFrameSender::sendConsecFrames()
         CanMessage message;
         message.setId(options_.sourceId);
         message[0] = (typeConsec << 4) | nextConsec();
-        message.setLength(reader_.next(message.message() + 1, 7) + 1);
+        message.setLength(static_cast<uint8_t>(reader_.next(message.message() + 1, 7) + 1));
         message.pad();
         can_.send(message);
 

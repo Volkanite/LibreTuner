@@ -21,17 +21,17 @@ IsoTpJ2534::IsoTpJ2534(j2534::DevicePtr device, IsoTpOptions options)
 
     j2534::PASSTHRU_MSG msgPattern = msgMask;
     uint32_t id = options_.destId;
-    msgPattern.Data[0] = (id & 0xFF000000U) >> 24U;
-    msgPattern.Data[1] = (id & 0xFF0000U) >> 16U;
-    msgPattern.Data[2] = (id & 0xFF00U) >> 8U;
-    msgPattern.Data[3] = id & 0xFFU;
+    msgPattern.Data[0] = static_cast<unsigned char>( (id & 0xFF000000U) >> 24U );
+    msgPattern.Data[1] = static_cast<unsigned char>( (id & 0xFF0000U) >> 16U );
+    msgPattern.Data[2] = static_cast<unsigned char>( (id & 0xFF00U) >> 8U );
+    msgPattern.Data[3] = static_cast<unsigned char>( id & 0xFFU );
 
     j2534::PASSTHRU_MSG msgFlowControl = msgMask;
     uint32_t flow_id = options_.sourceId;
-    msgFlowControl.Data[0] = (flow_id & 0xFF000000U) >> 24U;
-    msgFlowControl.Data[1] = (flow_id & 0xFF0000U) >> 16U;
-    msgFlowControl.Data[2] = (flow_id & 0xFF00U) >> 8U;
-    msgFlowControl.Data[3] = flow_id & 0xFFU;
+    msgFlowControl.Data[0] = static_cast<unsigned char>( (flow_id & 0xFF000000U) >> 24U );
+    msgFlowControl.Data[1] = static_cast<unsigned char>( (flow_id & 0xFF0000U) >> 16U );
+    msgFlowControl.Data[2] = static_cast<unsigned char>( (flow_id & 0xFF00U) >> 8U );
+    msgFlowControl.Data[3] = static_cast<unsigned char>( flow_id & 0xFFU );
 
     uint32_t msgId;
     channel_.startMsgFilter(FLOW_CONTROL_FILTER, &msgMask, &msgPattern, &msgFlowControl, msgId);
@@ -45,7 +45,7 @@ void IsoTpJ2534::recv(IsoTpPacket & result)
         msg.ProtocolID = static_cast<uint32_t>(j2534::Protocol::ISO15765);
 
         uint32_t pNumMsgs = 1;
-        channel_.readMsgs(&msg, pNumMsgs, options_.timeout.count());
+        channel_.readMsgs(&msg, pNumMsgs, static_cast<uint32_t>(options_.timeout.count()));
 
         // Fill buffer
         if (msg.DataSize <= 4)
@@ -77,10 +77,10 @@ void IsoTpJ2534::send(const IsoTpPacket & packet)
         throw std::runtime_error("IsoTp packet exceeds maximum size (4124)");
 
     uint32_t id = options_.sourceId;
-    msg.Data[0] = (id & 0xFF000000U) >> 24U;
-    msg.Data[1] = (id & 0xFF0000U) >> 16U;
-    msg.Data[2] = (id & 0xFF00U) >> 8U;
-    msg.Data[3] = id & 0xFFU;
+    msg.Data[0] = static_cast<unsigned char>( (id & 0xFF000000U) >> 24U );
+    msg.Data[1] = static_cast<unsigned char>( (id & 0xFF0000U) >> 16U );
+    msg.Data[2] = static_cast<unsigned char>( (id & 0xFF00U) >> 8U );
+    msg.Data[3] = static_cast<unsigned char>( id & 0xFFU );
 
     std::copy(packet.begin(), packet.end(), std::next(std::begin(msg.Data), 4));
     msg.DataSize = packet.size() + 4;

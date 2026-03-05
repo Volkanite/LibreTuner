@@ -1,6 +1,6 @@
 #include "serialportmodel.h"
 
-QModelIndex SerialPortModel::parent(const QModelIndex & child) const
+QModelIndex SerialPortModel::parent(const QModelIndex & /*child*/) const
 {
     return QModelIndex();
 }
@@ -14,7 +14,7 @@ int SerialPortModel::rowCount(const QModelIndex & parent) const
     return ports_.size();
 }
 
-int SerialPortModel::columnCount(const QModelIndex & parent) const { return 1; }
+int SerialPortModel::columnCount(const QModelIndex & /*parent*/) const { return 1; }
 
 QVariant SerialPortModel::data(const QModelIndex & index, int role) const
 {
@@ -23,7 +23,7 @@ QVariant SerialPortModel::data(const QModelIndex & index, int role) const
         return QVariant();
     }
 
-    if (index.column() != 0 || index.row() >= ports_.size())
+    if (index.column() != 0 || (unsigned int) index.row() >= ports_.size())
     {
         return QVariant();
     }

@@ -10,7 +10,7 @@ public:
     explicit BufferedReader(Device &device) : device_(device) {}
 
     // Reads exactly `amount` bytes
-    std::string read(int amount);
+    std::string read(unsigned int amount);
 
     // Reads a single line terminating in CR or LF
     // or if `stop` is read at the beginning of the line

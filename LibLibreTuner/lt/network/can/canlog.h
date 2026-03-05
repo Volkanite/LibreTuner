@@ -22,6 +22,11 @@ struct CanLogEntry
     CanMessage message;
 };
 
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable : 4099)
+#endif
+
 struct CanLog
 {
     std::vector<CanLogEntry> messages_;
@@ -36,6 +41,11 @@ struct CanLog
 
     Event<CanLogEntry &> eventAdded;
 };
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
+
 using CanLogPtr = std::shared_ptr<CanLog>;
 
 // Proxies a CAN interface and logs all sent and received messages

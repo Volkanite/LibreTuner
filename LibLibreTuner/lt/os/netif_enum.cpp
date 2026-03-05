@@ -10,7 +10,11 @@
 
 namespace lt
 {
+#ifdef __linux__
 std::vector<std::string> enumerateNetworkInterfaces(int family)
+#else
+std::vector<std::string> enumerateNetworkInterfaces(int) //avoids C4100 warning
+#endif
 {
 #ifdef __linux__
 

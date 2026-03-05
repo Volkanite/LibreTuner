@@ -234,27 +234,27 @@ void from_json(const json & j, lt::Platform & platform)
         it->get_to(platform.pids);
 }
 
-const TableDefinition * Platform::getTable(const std::string & id) const
+const TableDefinition * Platform::getTable(const std::string & identifier) const
     noexcept
 {
-    if (auto it = tables.find(id); it != tables.end())
+    if (auto it = tables.find(identifier); it != tables.end())
         return &it->second;
     return nullptr;
 }
 
-ModelPtr Platform::findModel(const std::string & id) const noexcept
+ModelPtr Platform::findModel(const std::string & identifier) const noexcept
 {
     for (const ModelPtr & model : models)
     {
-        if (model->id == id)
+        if (model->id == identifier)
             return model;
     }
     return nullptr;
 }
 
-const AxisDefinition * Platform::getAxis(const std::string & id) const noexcept
+const AxisDefinition * Platform::getAxis(const std::string & identifier) const noexcept
 {
-    if (auto it = axes.find(id); it != axes.end())
+    if (auto it = axes.find(identifier); it != axes.end())
         return &it->second;
     return nullptr;
 }

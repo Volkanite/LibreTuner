@@ -123,7 +123,7 @@ public:
     void read(TValue * data, std::size_t size)
     {
         assert(end_ > pointer_);
-        if (size <= std::distance(pointer_, end_))
+        if (size <= (unsigned int) std::distance(pointer_, end_))
         {
             std::copy(pointer_, pointer_ + size, data);
             std::advance(pointer_, size);
