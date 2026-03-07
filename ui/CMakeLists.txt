@@ -72,8 +72,8 @@ set(UI_SRC
     ui/docks/editorwidget.h
     ui/docks/graphwidget.cpp
     ui/docks/graphwidget.h
-    ui/docks/hexeditwidget.cpp
-    ui/docks/hexeditwidget.h
+    #ui/docks/hexeditwidget.cpp
+    #ui/docks/hexeditwidget.h
     ui/docks/explorerwidget.cpp
     ui/docks/explorerwidget.h
 
