@@ -36,7 +36,22 @@ FlashMap::FlashMap(std::vector<uint8_t> && data, std::size_t offset)
 {
 }
 
-FlashMap FlashMap::fromTune(Tune & tune)
+FlashMap::FlashMap(const Rom & rom)
+{
+    const lt::ModelPtr & model = rom.model();
+
+    if (model == nullptr)
+        throw std::runtime_error("invalid calibration");
+
+    const lt::PlatformPtr & platform = model->platform();
+    offset_ = platform->flashOffset;
+    std::vector<uint8_t> new_rom(rom.data(), std::next(rom.data(), rom.size()));
+    std::vector<uint8_t> flash_region(std::next(new_rom.data(), offset_), std::next(new_rom.data(), new_rom.size()));
+
+    data_ = std::move(flash_region);
+}
+
+/*FlashMap FlashMap::fromTune(Tune & tune)
 {
     const lt::RomPtr & rom = tune.base();
 
@@ -52,7 +67,7 @@ FlashMap FlashMap::fromTune(Tune & tune)
                               rom->data() + rom->size());
 
     // Try each table
-    /*for (const auto & [id, definition] : model->tables)
+    for (const auto & [id, definition] : model->tables)
     {
         Table * table = tune.getTable(id, false);
         if (table == nullptr)
@@ -65,7 +80,7 @@ FlashMap FlashMap::fromTune(Tune & tune)
 
         std::copy(serialized.begin(), serialized.end(),
                   data.begin() + definition.offset.value() - offset);
-    }*/
+    }
 
     // Correct and verify checksums
     model->checksums.correct(new_rom.data(), new_rom.size());
@@ -74,6 +89,6 @@ FlashMap FlashMap::fromTune(Tune & tune)
                               new_rom.data() + new_rom.size() - offset);
 
     return FlashMap(std::move(flash_region), offset);
-}
+}*/
 
 } // namespace lt

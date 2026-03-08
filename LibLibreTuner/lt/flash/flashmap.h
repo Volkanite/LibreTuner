@@ -20,6 +20,7 @@
 #define FLASHMAP_H
 
 #include <memory>
+#include "../rom/rom.h"
 #include <string>
 #include <vector>
 
@@ -34,10 +35,11 @@ class Tune;
 class FlashMap
 {
 public:
+    FlashMap(const Rom & rom);
     FlashMap(const std::vector<uint8_t> & data, std::size_t offset);
     FlashMap(std::vector<uint8_t> && data, std::size_t offset);
 
-    static FlashMap fromTune(Tune & tune);
+    //static FlashMap fromTune(Tune & tune);
 
     // The address offset the data should be flashed to
     size_t offset() const { return offset_; }

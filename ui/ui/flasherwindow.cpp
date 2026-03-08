@@ -153,7 +153,8 @@ void FlasherWindow::buttonFlashClicked()
 
             // Create task
             BackgroundTask<bool()> task([&]() {
-                return flasher->flash(lt::FlashMap::fromTune(*selectedTune_));
+                //return flasher->flash(lt::FlashMap::fromTune(*selectedTune_));
+                return flasher->flash(lt::FlashMap(*selectedTune_->base()));
             });
 
             bool canceled = false;
