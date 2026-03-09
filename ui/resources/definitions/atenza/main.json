@@ -1,0 +1,33 @@
+{
+    "tables": {
+        "14": {
+            "datatype": "float",
+            "category": "Limits",
+            "width": 1,
+            "name": "Speed Limit (Fuel cut)",
+            "description": "Speed Limit (Fuel cut)"
+        }
+    },
+    "baudrate": 500000,
+    "name": "Mazda Atenza",
+    "transfer": {
+        "serverid": 2016,
+        "flashmode": "MazdaT1",
+        "downloadmode": "Mazda23"
+    },
+    "romsize": 524288,
+    "logmode": "uds",
+    "auth": {
+        "flash_sessionid": 133,
+        "download_sessionid": 135,
+        "key": "MazdA"
+    },
+    "flashregion": {
+        "size": 495616,
+        "offset": 28672
+    },
+    "vins": [
+        "GG3......."
+    ],
+    "id": "atenza"
+}

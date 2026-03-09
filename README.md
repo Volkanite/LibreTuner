@@ -11,6 +11,7 @@ Screenshots
 
 Supported vehicles
 ------------------
+* 2002-2005 Mazda Atenza
 * 2005-2007 Mazdaspeed6 / Mazda 6 MPS / Mazdaspeed Atenza
 * MX-5 NC (Only editing)
 

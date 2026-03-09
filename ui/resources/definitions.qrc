@@ -50,5 +50,8 @@
         <file>definitions/mx5_nc/LFN5EN.json</file>
         <file>definitions/mx5_nc/LFZZEA.json</file>
         <file>definitions/mx5_nc/main.json</file>
+        <file>definitions/atenza/l333ed.json</file>
+        <file>definitions/atenza/l333ek.json</file>
+        <file>definitions/atenza/main.json</file>
     </qresource>
 </RCC>
