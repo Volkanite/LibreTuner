@@ -18,7 +18,7 @@ public:
 
     void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override
     {
-        QVariant background = index.data(Qt::BackgroundColorRole);
+        QVariant background = index.data(Qt::BackgroundRole);
         if (background.isValid())
         {
             painter->fillRect(option.rect, background.value<QColor>());

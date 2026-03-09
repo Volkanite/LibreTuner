@@ -32,7 +32,7 @@ VerticalLabel::VerticalLabel(const QString & text, QWidget * parent)
 void VerticalLabel::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    painter.setPen(palette().color(QPalette::Foreground));
+    painter.setPen(palette().color(QPalette::WindowText));
     painter.setBrush(Qt::Dense1Pattern);
 
     painter.setRenderHint(QPainter::Antialiasing, true);

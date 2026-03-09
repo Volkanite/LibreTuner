@@ -53,13 +53,13 @@ void LogView::rowsInserted(const QModelIndex & parent, int first, int last)
 
         QTextCharFormat format;
 
-        QVariant foregroundColor = model_->data(index, Qt::TextColorRole);
+        QVariant foregroundColor = model_->data(index, Qt::ForegroundRole);
         if (foregroundColor.isValid())
         {
             format.setForeground(foregroundColor.value<QColor>());
         }
 
-        QVariant backgroundColor = model_->data(index, Qt::BackgroundColorRole);
+        QVariant backgroundColor = model_->data(index, Qt::BackgroundRole);
         if (backgroundColor.isValid())
         {
             format.setBackground(backgroundColor.value<QColor>());

@@ -32,7 +32,7 @@ QVariant TableModel::data(const QModelIndex & index, int role) const
     if (table_ == nullptr || !index.isValid())
         return QVariant();
 
-    if (role != Qt::UserRole && role != Qt::DisplayRole && role != Qt::BackgroundColorRole &&
+    if (role != Qt::UserRole && role != Qt::DisplayRole && role != Qt::BackgroundRole &&
         role != Qt::ForegroundRole)
         return QVariant();
 
@@ -50,7 +50,7 @@ QVariant TableModel::data(const QModelIndex & index, int role) const
         return QColor(0, 0, 0);
     }
 
-    if (role == Qt::BackgroundColorRole)
+    if (role == Qt::BackgroundRole)
     {
         if (table_->isScalar())
             return QVariant();
