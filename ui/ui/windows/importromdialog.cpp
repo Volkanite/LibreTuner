@@ -43,8 +43,8 @@ ImportRomDialog::ImportRomDialog(lt::ProjectPtr project, QWidget * parent)
     auto * form = new QFormLayout;
     form->addRow(tr("Project"), comboProject_);
     form->addRow(tr("Platform"), comboPlatform_);
-    form->addRow(tr("Name"), lineName_);
     form->addRow(tr("Path"), pathLayout);
+    form->addRow(tr("Name"), lineName_);
 
     auto * groupDetails = new QGroupBox(tr("Properties"));
     groupDetails->setLayout(form);
