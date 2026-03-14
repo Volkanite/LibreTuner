@@ -36,6 +36,7 @@ class FlashMap
 {
 public:
     FlashMap(const Rom & rom);
+    FlashMap(Tune & tune);
     FlashMap(const std::vector<uint8_t> & data, std::size_t offset);
     FlashMap(std::vector<uint8_t> && data, std::size_t offset);
 

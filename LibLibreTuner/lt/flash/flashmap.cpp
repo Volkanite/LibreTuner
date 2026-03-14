@@ -51,7 +51,7 @@ FlashMap::FlashMap(const Rom & rom)
     data_ = std::move(flash_region);
 }
 
-/*FlashMap FlashMap::fromTune(Tune & tune)
+FlashMap::FlashMap(Tune & tune)
 {
     const lt::RomPtr & rom = tune.base();
 
@@ -61,34 +61,12 @@ FlashMap::FlashMap(const Rom & rom)
         throw std::runtime_error("model does not have a valid platform. (did "
                                  "the reference expire?)");
 
-    std::size_t offset = platform->flashOffset;
+    offset_ = platform->flashOffset;
 
-    std::vector<uint8_t> new_rom(rom->data(),
-                              rom->data() + rom->size());
+    std::vector<uint8_t> new_rom(tune.data(), std::next(tune.data(), tune.size()));
+    std::vector<uint8_t> flash_region(std::next(new_rom.data(), offset_), std::next(new_rom.data(), new_rom.size()));
 
-    // Try each table
-    for (const auto & [id, definition] : model->tables)
-    {
-        Table * table = tune.getTable(id, false);
-        if (table == nullptr)
-        {
-            continue;
-        }
-
-        std::vector<uint8_t> serialized =
-            table->intoBytes(platform->endianness);
-
-        std::copy(serialized.begin(), serialized.end(),
-                  data.begin() + definition.offset.value() - offset);
-    }
-
-    // Correct and verify checksums
-    model->checksums.correct(new_rom.data(), new_rom.size());
-
-    std::vector<uint8_t> flash_region(new_rom.data() + offset,
-                              new_rom.data() + new_rom.size() - offset);
-
-    return FlashMap(std::move(flash_region), offset);
-}*/
+    data_ = std::move(flash_region);
+}
 
 } // namespace lt

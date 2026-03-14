@@ -175,6 +175,7 @@ public:
     inline iterator end() { return data_.end(); }
     inline const_iterator cend() { return data_.cend(); }
     inline std::vector<uint8_t>::size_type size() const { return data_.size(); }
+    inline const uint8_t * data() const noexcept { return data_.data(); }
 
 private:
     std::string name_;
